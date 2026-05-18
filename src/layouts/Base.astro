@@ -4,9 +4,10 @@ import "../styles/site.css";
 const {
   title = "Brad Edwards",
   description = "Applied security research - agentic systems, cyber ranges, SOC tooling.",
+  home = false,
 } = Astro.props;
 
-const pageTitle = title === "Brad Edwards" ? title : `${title} | Brad Edwards`;
+const pageTitle = home || title === "Brad Edwards" ? title : `${title} - Brad Edwards`;
 ---
 
 <!doctype html>
@@ -20,8 +21,8 @@ const pageTitle = title === "Brad Edwards" ? title : `${title} | Brad Edwards`;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header">
-      <a class="site-name" href="/">Brad Edwards</a>
+    <header class:list={["site-header", home && "home-header"]}>
+      {!home && <a class="site-name" href="/">Brad Edwards</a>}
       <nav aria-label="Primary">
         <a href="/posts/">Posts</a>
         <a href="/#projects">Projects</a>
@@ -35,7 +36,7 @@ const pageTitle = title === "Brad Edwards" ? title : `${title} | Brad Edwards`;
     </main>
     <footer class="site-footer">
       <a href="mailto:j.bradley.edwards@gmail.com">j.bradley.edwards@gmail.com</a>
-      <span>infosec.exchange (pending)</span>
+      <span>infosec.exchange</span>
       <a href="/rss.xml">RSS</a>
     </footer>
   </body>

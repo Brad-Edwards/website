@@ -23,12 +23,10 @@ const projects = [
 ];
 ---
 
-<Base>
+<Base home>
   <section class="intro" aria-labelledby="intro-title">
-    <h1 id="intro-title">
-      Brad Edwards
-      <span>Applied security research - agentic systems, cyber ranges, SOC tooling.</span>
-    </h1>
+    <h1 id="intro-title">Brad Edwards</h1>
+    <p class="role">Applied security research - agentic systems, cyber ranges, SOC tooling.</p>
     <p class="lede">
       I work on agentic systems for security operations: open-source tooling for
       purple-team automation, formalizing cyber range design, and AI-assisted
@@ -60,9 +58,9 @@ const projects = [
           {recentPosts.map((post) => (
             <li>
               <a href={`/posts/${post.id}/`}>{post.data.title}</a>
-              <div class="meta">
+              <p class="meta">
                 <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-              </div>
+              </p>
               {post.data.description && <p>{post.data.description}</p>}
             </li>
           ))}
