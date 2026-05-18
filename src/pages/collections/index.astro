@@ -1,0 +1,24 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getPublishedPosts, groupByCollection, slugify } from "../../lib/content";
+
+const collections = groupByCollection(await getPublishedPosts());
+---
+
+<Base title="Collections">
+  <h1>Collections</h1>
+  {
+    collections.length ? (
+      <ul class="index-list">
+        {collections.map(([collection, posts]) => (
+          <li>
+            <a href={`/collections/${slugify(collection)}/`}>{collection}</a>
+            <span class="meta"> {posts.length}</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">No collections yet.</p>
+    )
+  }
+</Base>

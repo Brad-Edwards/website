@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import {
+  formatDate,
+  getPublishedPosts,
+  groupByCollection,
+  slugify,
+} from "../../lib/content";
+
+export async function getStaticPaths() {
+  const collections = groupByCollection(await getPublishedPosts());
+  return collections.map(([collection, posts]) => ({
+    params: { collection: slugify(collection) },
+    props: { collection, posts },
+  }));
+}
+
+const { collection, posts } = Astro.props;
+---
+
+<Base title={collection}>
+  <h1>{collection}</h1>
+  <ol class="entries">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+          <div class="meta">
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Base>

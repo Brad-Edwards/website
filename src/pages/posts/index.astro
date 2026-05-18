@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import { formatDate, getPublishedPosts } from "../../lib/content";
+
+const posts = await getPublishedPosts();
+---
+
+<Base title="Posts">
+  <h1>Posts</h1>
+  {
+    posts.length ? (
+      <ol class="entries">
+        {posts.map((post) => (
+          <li>
+            <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+            <div class="meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              {" / "}
+              {post.data.collection}
+            </div>
+            {post.data.description && <p>{post.data.description}</p>}
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="empty">No published posts yet.</p>
+    )
+  }
+</Base>

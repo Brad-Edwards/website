@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import { formatDate, getPublishedPosts, groupByTag, slugify } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const tags = groupByTag(await getPublishedPosts());
+  return tags.map(([tag, posts]) => ({
+    params: { tag: slugify(tag) },
+    props: { tag, posts },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Base title={`Tag: ${tag}`}>
+  <h1>{tag}</h1>
+  <ol class="entries">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+          <div class="meta">
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            {" / "}
+            {post.data.collection}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Base>

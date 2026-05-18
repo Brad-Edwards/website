@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Brad-Edwards/website#readme",
   "devDependencies": {
+    "@astrojs/rss": "^4.0.18",
     "astro": "^6.3.5",
+    "mermaid": "^11.15.0",
     "wrangler": "^4.92.0"
   },
   "type": "module"

@@ -1,0 +1,42 @@
+---
+import "../styles/site.css";
+
+const {
+  title = "Brad Edwards",
+  description = "Applied security research - agentic systems, cyber ranges, SOC tooling.",
+} = Astro.props;
+
+const pageTitle = title === "Brad Edwards" ? title : `${title} | Brad Edwards`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <link rel="alternate" type="application/rss+xml" title="Brad Edwards RSS" href="/rss.xml" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="site-name" href="/">Brad Edwards</a>
+      <nav aria-label="Primary">
+        <a href="/posts/">Posts</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#talks">Talks</a>
+        <a href="/tags/">Tags</a>
+        <a href="/collections/">Collections</a>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <a href="mailto:j.bradley.edwards@gmail.com">j.bradley.edwards@gmail.com</a>
+      <span>infosec.exchange (pending)</span>
+      <a href="/rss.xml">RSS</a>
+    </footer>
+  </body>
+</html>

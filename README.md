@@ -1,6 +1,6 @@
 # website
 
-Astro site deployed to Cloudflare Workers.
+Personal blog and project index built with Astro and deployed to Cloudflare Workers.
 
 Cloudflare build settings:
 
@@ -8,4 +8,3 @@ Cloudflare build settings:
 Build command: npm run build
 Deploy command: npx wrangler deploy
 ```
-Website

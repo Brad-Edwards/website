@@ -1,0 +1,56 @@
+---
+import { render } from "astro:content";
+import mermaidPackage from "mermaid/package.json";
+import Base from "../../layouts/Base.astro";
+import { formatDate, getPublishedPosts, slugify } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const hasMermaid = post.body?.includes("```mermaid") ?? false;
+const mermaidSrc = `https://cdn.jsdelivr.net/npm/mermaid@${mermaidPackage.version}/dist/mermaid.esm.min.mjs`;
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <article class="prose">
+    <header>
+      <p class="meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        {" / "}
+        <a href={`/collections/${slugify(post.data.collection)}/`}>{post.data.collection}</a>
+      </p>
+      <h1>{post.data.title}</h1>
+      {post.data.description && <p class="lede">{post.data.description}</p>}
+      {
+        post.data.tags.length > 0 && (
+          <ul class="tags" aria-label="Tags">
+            {post.data.tags.map((tag) => (
+              <li><a href={`/tags/${slugify(tag)}/`}>{tag}</a></li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+    <Content />
+  </article>
+  {
+    hasMermaid && (
+      <script type="module" define:vars={{ mermaidSrc }}>
+        const { default: mermaid } = await import(mermaidSrc);
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: "strict",
+          theme: "neutral",
+        });
+        await mermaid.run({ querySelector: ".mermaid" });
+      </script>
+    )
+  }
+</Base>
