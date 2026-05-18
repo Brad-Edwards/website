@@ -1,4 +1,18 @@
 :root {
+  --measure: 44rem;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111;
+  --text: #eee;
+  --muted: #aaa;
+  --line: #333;
+  --accent: #8ab4f8;
+  --code-bg: #1d1d1d;
+}
+
+[data-theme="light"] {
   color-scheme: light;
   --bg: #fff;
   --text: #111;
@@ -6,7 +20,6 @@
   --line: #ddd;
   --accent: #0645ad;
   --code-bg: #f6f6f6;
-  --measure: 44rem;
 }
 
 * {
@@ -94,6 +107,21 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 0.9rem;
+}
+
+.theme-toggle {
+  padding: 0;
+  border: 0;
+  color: var(--accent);
+  background: transparent;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  text-decoration-thickness: 0.12em;
 }
 
 .intro {
@@ -241,6 +269,10 @@ pre code {
   }
 
   nav {
+    margin-top: 0.35rem;
+  }
+
+  .theme-toggle {
     margin-top: 0.35rem;
   }
 

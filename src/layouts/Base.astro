@@ -11,13 +11,17 @@ const pageTitle = home || title === "Brad Edwards" ? title : `${title} - Brad Ed
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
     <link rel="alternate" type="application/rss+xml" title="Brad Edwards RSS" href="/rss.xml" />
+    <script is:inline>
+      const savedTheme = localStorage.getItem("theme");
+      document.documentElement.dataset.theme = savedTheme === "light" ? "light" : "dark";
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -30,6 +34,9 @@ const pageTitle = home || title === "Brad Edwards" ? title : `${title} - Brad Ed
         <a href="/tags/">Tags</a>
         <a href="/collections/">Collections</a>
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to light theme">
+        Light
+      </button>
     </header>
     <main id="main">
       <slot />
@@ -39,5 +46,24 @@ const pageTitle = home || title === "Brad Edwards" ? title : `${title} - Brad Ed
       <span>infosec.exchange</span>
       <a href="/rss.xml">RSS</a>
     </footer>
+    <script>
+      const toggle = document.querySelector(".theme-toggle");
+      const root = document.documentElement;
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        localStorage.setItem("theme", theme);
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        if (toggle) {
+          toggle.textContent = nextTheme[0].toUpperCase() + nextTheme.slice(1);
+          toggle.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
+        }
+      }
+
+      setTheme(root.dataset.theme === "light" ? "light" : "dark");
+      toggle?.addEventListener("click", () => {
+        setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+      });
+    </script>
   </body>
 </html>
