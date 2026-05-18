@@ -1,0 +1,26 @@
+{
+  "name": "brad-edwards-website",
+  "version": "1.0.0",
+  "description": "Website",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brad-Edwards/website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brad-Edwards/website/issues"
+  },
+  "homepage": "https://github.com/Brad-Edwards/website#readme",
+  "devDependencies": {
+    "astro": "^6.3.5",
+    "wrangler": "^4.92.0"
+  },
+  "type": "module"
+}
